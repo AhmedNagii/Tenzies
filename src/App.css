@@ -5,7 +5,7 @@ body {
 
 }
 
-body,.die,main{
+body,.die{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,8 +16,13 @@ body,.die,main{
 main{
   background: #f5f5f5;
   height: 400px;
-  width: 800px;
+  max-width: 800px;
   border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+    align-items: center;
 }
 
 .die{
@@ -33,11 +38,17 @@ main{
   display: grid;
   grid-gap: 1em;
   grid-template-columns: repeat(5 , 1fr);
-  
+ margin-bottom: 40px;
 }
-h1{
+h2{
   font-size: 2rem;
 }
+
+.title {
+  font-size: 40px;
+  margin: 0;
+}
+
 
 button{
   text-align: center;
@@ -45,16 +56,16 @@ button{
   background-color:#5035FF ;
   border-radius: 4px;
   border: none;
-  color: white;
   font-weight: 700;
   font-family: 'Karla', sans-serif;
   font-size: 1.2rem;
   cursor: pointer;
+  color: #fff;
 }
-.roll-dice:focus {
+button:focus {
   outline: none;
 }
 
-.roll-dice:active {
+button:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
