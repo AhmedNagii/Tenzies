@@ -10,25 +10,16 @@ export default function App() {
 
   useEffect(()=>{
     const allHeld = dice.every(die => die.isHeld)
-    const firstNum = dice.every(die => dice[9].value === die.value) 
-    if(allHeld && firstNum){
-      setTenzies(true)
-    }
-    // for(let i = 0; i < dice.length; i++){
-    //   if(dice[i].isHeld === false && dice[i] === firstNum){
-    //     console.log(dice[i].isHeld === false && dice[i] === firstNum)
-    //      settenzies(state)
-    //      break;
-    //   }  else{
-    //     state = true
-    //   //  console.log(state)
-    //     settenzies(true)
-    //   }
-    // }
+    const firstValue = dice[0].value
+    const allSameValue = dice.every(die => die.value === firstValue )
 
-    // if(tenzies){
-    //   console.log('you did smart guy')
-    // }
+
+
+console.log(` ${dice}`)
+    if (allHeld && allSameValue) {
+        setTenzies(true)
+    }
+
      },[dice])
 
   function generateNewDie() {
@@ -39,8 +30,6 @@ export default function App() {
     };
   }
 
-
-
   function allNewDice() {
     let newDice = [];
     for (let i = 0; i < 10; i++) {
@@ -49,16 +38,9 @@ export default function App() {
 
     return newDice;
   }
-  //get prev array
-  //get the matched ID
 
-  function holdDice(dieId) {
-    setDice((prevDice) =>
-      prevDice.map((die) => {
-        return die.id === dieId ? { ...die, isHeld: !die.isHeld } : die;
-      })
-    );
-  }
+
+
 
   function rollDice() {
     setDice((oldDice) =>
@@ -67,7 +49,17 @@ export default function App() {
       })
     );
   }
-
+  function holdDice(dieId) {
+    setDice((prevDice) =>
+      prevDice.map((die) => {
+        return die.id === dieId ? { ...die, isHeld: !die.isHeld } : die;
+      })
+    );
+  }
+  function resetGame(){
+    setDice(allNewDice())
+    setTenzies(false)
+  }
   const diceElements = dice.map((die) => {
     return (
       <Die
@@ -80,16 +72,21 @@ export default function App() {
     );
   });
 
+
+  
+
   return (
     <main>
-      <h1 className="title">Tenzies</h1>
-      {tenzies && <Confetti/>}
+        {tenzies && <Confetti />}
+      <h1 className="title">Tenzies {tenzies}</h1>
       <p className="instructions">
         Roll until all dice are the same. Click each die to freeze it at its
         current value between rolls.
       </p>
       <div className="dice-container">{diceElements}</div>
-      <button onClick={rollDice}>{tenzies?"New Game":"Roll"}</button>
+      <button onClick={tenzies?resetGame:rollDice}>
+        {tenzies?"New Game":"Roll"}
+        </button>
     </main>
   );
 }
